@@ -18,6 +18,7 @@
     <modules>
         <module>config-server</module>
         <module>micro-service</module>
+        <module>jaxrs-ms</module>
     </modules>
 
     <dependencyManagement>

@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8888
+      enabled: false
+
+  application:
+    name: jaxrs-ms
+
+  profiles:
+    active:
+    - dev
+    - local
