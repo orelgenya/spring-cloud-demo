@@ -6,8 +6,5 @@ spring:
     config:
       server:
         git:
-          uri:
-        native:
-          search-locations: file:///D:/workspace-mine/spring-cloud-demo/configs
-  profiles:
-    active: native
+          uri: https://github.com/orelgenya/spring-cloud-demo.git
+          search-paths: configs

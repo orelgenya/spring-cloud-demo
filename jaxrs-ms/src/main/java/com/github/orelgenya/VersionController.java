@@ -1,5 +1,6 @@
 package com.github.orelgenya;
 
+import com.hazelcast.core.HazelcastInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -17,9 +18,14 @@ public class VersionController {
     @Value("${version}")
     String version;
 
+    private int counter;
+
+    @Autowired
+    HazelcastInstance instance;
+
     @GET
     @Produces(CONTENT_TYPE)
     public String getVersion() {
-        return version;
+        return version + '-' + instance.getName() + '-' + counter++;
     }
 }

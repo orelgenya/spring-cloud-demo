@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<hazelcast-client xmlns="http://www.hazelcast.com/schema/client-config">
+    <network>
+        <cluster-members>
+            <address>192.168.99.100:5701</address>
+        </cluster-members>
+    </network>
+</hazelcast-client>
