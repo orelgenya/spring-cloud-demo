@@ -26,6 +26,7 @@ public class VersionController {
     @GET
     @Produces(CONTENT_TYPE)
     public String getVersion() {
-        return version + '-' + instance.getName() + '-' + counter++;
+        instance.getMap("jaxrs").put("counter", ++counter);
+        return version + '-' + instance.getName() + '-' + instance.getMap("jaxrs").get("counter");
     }
 }
