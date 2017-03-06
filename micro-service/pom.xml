@@ -11,10 +11,6 @@
 
     <artifactId>micro-service</artifactId>
 
-    <properties>
-        <docker.image.prefix>spring-cloud</docker.image.prefix>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

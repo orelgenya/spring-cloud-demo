@@ -1,0 +1,1 @@
+docker build -t spring-cloud/ldap-server .

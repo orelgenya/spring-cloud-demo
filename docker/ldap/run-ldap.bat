@@ -1,0 +1,1 @@
+docker run -it --rm -p 10389:10389 -v /:/mnt kwart/ldap-server java -jar ldap-server.jar /mnt/custom.ldif

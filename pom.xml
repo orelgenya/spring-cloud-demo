@@ -19,7 +19,13 @@
         <module>config-server</module>
         <module>micro-service</module>
         <module>jaxrs-ms</module>
+        <module>auth-service</module>
     </modules>
+
+    <properties>
+        <docker.image.prefix>spring-cloud</docker.image.prefix>
+        <java.version>8</java.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>

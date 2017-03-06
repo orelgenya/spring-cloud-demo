@@ -11,10 +11,6 @@
 
     <artifactId>config-server</artifactId>
 
-    <properties>
-        <docker.image.prefix>spring-cloud</docker.image.prefix>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
