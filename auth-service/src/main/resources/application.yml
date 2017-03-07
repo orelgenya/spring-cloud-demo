@@ -1,2 +1,11 @@
 server:
   port: 9003
+
+ldap:
+  url: ldap://192.168.99.100:10389
+  base:
+  user: uid=jduke,ou=Users,dc=jboss,dc=org
+  password: theduke
+
+tokens:
+  ttl: 300000 # ms

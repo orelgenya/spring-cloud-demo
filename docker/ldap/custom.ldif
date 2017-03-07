@@ -1,29 +1,55 @@
-dn: dc=jboss,dc=org
-dc: jboss
-objectClass: top
-objectClass: domain
-
-dn: ou=Users,dc=jboss,dc=org
-objectClass: organizationalUnit
-objectClass: top
-ou: Users
+version: 1
 
 dn: uid=jduke,ou=Users,dc=jboss,dc=org
-objectClass: top
-objectClass: person
-objectClass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: person
+objectclass: top
 cn: Java Duke
 sn: duke
 uid: jduke
-userPassword: theduke
-
-dn: ou=Roles,dc=jboss,dc=org
-objectclass: top
-objectclass: organizationalUnit
-ou: Roles
+userpassword:: dGhlZHVrZQ==
 
 dn: cn=Admin,ou=Roles,dc=jboss,dc=org
-objectClass: top
-objectClass: groupOfNames
+objectclass: groupOfNames
+objectclass: top
 cn: Admin
 member: uid=jduke,ou=Users,dc=jboss,dc=org
+
+dn: dc=jboss,dc=org
+objectclass: domain
+objectclass: top
+dc: jboss
+
+dn: cn=User,ou=Roles,dc=jboss,dc=org
+objectclass: groupOfNames
+objectclass: top
+cn: User
+member: uid=jduke,ou=Users,dc=jboss,dc=org
+
+dn: cn=Developer,ou=Roles,dc=jboss,dc=org
+objectclass: groupOfNames
+objectclass: top
+cn: Developer
+member: uid=mt_api,ou=Users,dc=jboss,dc=org
+
+dn: ou=Users,dc=jboss,dc=org
+objectclass: organizationalUnit
+objectclass: top
+ou: Users
+
+dn: ou=Roles,dc=jboss,dc=org
+objectclass: organizationalUnit
+objectclass: top
+ou: Roles
+
+dn: uid=mt_api,ou=Users,dc=jboss,dc=org
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: person
+objectclass: top
+cn: MT API
+sn: mt_api
+uid: mt_api
+userpassword:: bXRhcGk=
+
