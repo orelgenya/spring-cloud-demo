@@ -8,5 +8,7 @@ public class JerseyConfig extends ResourceConfig {
 
     public JerseyConfig() {
         register(VersionController.class);
+        register(SecretController.class);
+        register(JwtFilter.class);
     }
 }

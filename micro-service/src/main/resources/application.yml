@@ -1,2 +1,8 @@
 server:
   port: 9001
+
+auth:
+  url: http://localhost:9003/tokens
+
+jaxrsms:
+  url: http://localhost:9002/secret

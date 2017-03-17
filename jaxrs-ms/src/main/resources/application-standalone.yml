@@ -3,3 +3,6 @@ version: standalone-version
 spring:
   hazelcast:
     config: classpath:hazelcast-standalone.xml
+
+jwt:
+  key: s3cr37!

@@ -33,15 +33,6 @@ objectclass: top
 cn: Developer
 member: uid=mt_api,ou=Users,dc=jboss,dc=org
 
-dn: ou=Users,dc=jboss,dc=org
-objectclass: organizationalUnit
-objectclass: top
-ou: Users
-
-dn: ou=Roles,dc=jboss,dc=org
-objectclass: organizationalUnit
-objectclass: top
-ou: Roles
 
 dn: uid=mt_api,ou=Users,dc=jboss,dc=org
 objectclass: organizationalPerson

@@ -16,13 +16,13 @@ import org.springframework.ldap.core.AttributesMapper;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.query.LdapQuery;
 import org.springframework.ldap.query.LdapQueryBuilder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.naming.NamingEnumeration;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("tokens")
@@ -43,8 +43,8 @@ public class TokensController {
     @Autowired
     LdapTemplate ldapTemplate;
 
-    @PostMapping
-    public ResponseEntity<String> create(String userId, @RequestHeader(HttpHeaders.AUTHORIZATION) String auth) {
+    @GetMapping
+    public ResponseEntity<String> create(@RequestHeader(HttpHeaders.AUTHORIZATION) String auth) {
         Credentials credentials = parseAuthHeader(auth);
         if (credentials == null) {
             logger.info("Unauthorized user!");
@@ -57,16 +57,18 @@ public class TokensController {
             return ResponseEntity.status(401).build();
         }
 
-
-
         //Get current timestamp
         long nowMillis = System.currentTimeMillis();
+
+        Set<String> roles = new HashSet<>();
+        roles.addAll(userInfo.roles);
+
         // Let's set the JWT Claims
         JwtBuilder builder = Jwts.builder()
                 .setIssuedAt(new Date(nowMillis))
-                .setSubject(userId)
+                .setSubject(credentials.username)
                 .setIssuer(TokensController.class.toString())
-                .claim("role", userInfo.role)
+                .claim("roles", String.join(",", roles))
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .setExpiration(getExpDate(nowMillis, ttlMillis));
         // Builds the JWT and serializes it to a compact, URL-safe string
@@ -109,22 +111,25 @@ public class TokensController {
         }
 
         List<String> result = ldapTemplate.search(
-                LdapQueryBuilder.query()
-                .where("uid")
-                .is(credentials.username),
-                (AttributesMapper<String>) attributes -> (String) attributes.get("cn").get());
+                LdapQueryBuilder.query()//.base("ou=Roles,dc=jboss,dc=org")
+                        .where("member")
+                        .is("uid=" + credentials.username + ",ou=Users,dc=jboss,dc=org"), //uid=mt_api,ou=Users,dc=jboss,dc=org
+                (AttributesMapper<String>) attributes -> {
+                    NamingEnumeration enumeration = attributes.getAll();
+                    while (enumeration.hasMore()) {
+                        System.out.println(enumeration.next());
+                    }
+                    return (String) attributes.get("cn").get();
+                });
 
         if (result.isEmpty()) {
             return null;
         }
 
-        if (result.size() > 1) {
-            throw new IllegalStateException("Too many users");
-        }
-
         UserInfo userInfo = new UserInfo();
         userInfo.id = credentials.username;
-        userInfo.role = result.get(0);
+        userInfo.roles = result;
+        userInfo.roles.add("Sample");
 
         logger.info("Authenticated '{}'. {}", credentials.username, userInfo);
         return userInfo;
@@ -137,14 +142,14 @@ public class TokensController {
     class UserInfo {
         String id;
         String email;
-        String role;
+        List<String> roles;
 
         @Override
         public String toString() {
             return "UserInfo{" +
                     "id='" + id + '\'' +
                     ", email='" + email + '\'' +
-                    ", role='" + role + '\'' +
+                    ", roles='" + roles + '\'' +
                     '}';
         }
     }
