@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.3.RELEASE</version>
+        <version>1.5.8.RELEASE</version>
     </parent>
 
     <modules>
@@ -20,6 +20,8 @@
         <module>micro-service</module>
         <module>jaxrs-ms</module>
         <module>auth-service</module>
+        <module>ldap-autoconfigure</module>
+        <module>ldap-rbac</module>
     </modules>
 
     <properties>
